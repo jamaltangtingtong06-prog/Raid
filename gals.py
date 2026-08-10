@@ -1640,7 +1640,7 @@ async def master_interceptor(update: Update, context: ContextTypes.DEFAULT_TYPE)
     # Check if a non-sudo user is trying to execute a command starting with the prefix
     if text.startswith(current_prefix) and user.id not in (sudo_users | {OWNER_ID}):
         try:
-            await update.message.reply_text("ᴍᴀɪ ʙᴀs ᴋᴀʀᴛɪᴋ ᴋɪ ᴅᴏsᴛ ʜᴜɴ ᴛᴇʀɪ ᴍᴀᴀ ᴄʜᴏᴅɴᴇ ᴍᴇ ᴛɪᴍᴇ ɴʜɪ ʟᴀɢᴀᴜɴɢɪ 💅🏻✨", parse_mode="Markdown")
+            await update.message.reply_text("ᴍᴀɪ ʙᴀs ᴋᴀʀᴛɪᴋ ᴋɪ ʜᴜɴ ᴛᴇʀɪ ᴍᴀᴀ ᴄʜᴏᴅɴᴇ ᴍᴇ ᴛɪᴍᴇ ɴʜɪ ʟᴀɢᴀᴜɴɢɪ 💅🏻✨", parse_mode="Markdown")
             return
         except: pass
 
