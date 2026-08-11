@@ -813,11 +813,12 @@ async def user_info_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except:
         await update.message.reply_text("⚠️ *𝑷𝒂𝒓𝒅𝒐𝒏:* 𝑪𝒐𝒖𝒍𝒅 𝒏𝒐𝒕 𝒇𝒆𝒕𝒄𝒉 𝒑𝒓𝒐𝒇𝒊𝒍𝒆 𝒅𝒆𝒕𝒂𝒊𝒍𝒔, 𝒔𝒘𝒆𝒆𝒕𝒊𝒆. 🪞", parse_mode="Markdown")
         
-        async def stop_ncemo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def stop_ncemo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id not in (sudo_users | {OWNER_ID}): return
     cid = update.effective_chat.id
     if cid in active_tasks: active_tasks[cid]["ncemo"] = False
     await report(update, "𝑵𝑪𝑬𝑴𝑶 𝑯𝑨𝑳𝑻", "𝑁𝑐𝑒𝑚𝑜 𝑙𝑜𝑜𝑝 𝑠𝑢𝑐𝑐𝑒𝑠𝑠𝑓𝑢𝑙𝑙𝑦 ℎ𝑎𝑙𝑡𝑒𝑑, 𝑑𝑎𝑟𝑙𝑖𝑛𝑔. ✨", context=context)
+
     
 
 # --- SECURE SYSTEM COMMANDS (/secure & /dsecure) ---
