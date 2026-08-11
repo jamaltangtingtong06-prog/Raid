@@ -1385,10 +1385,10 @@ async def master_interceptor(update: Update, context: ContextTypes.DEFAULT_TYPE)
         if update.message.reply_to_message and update.message.reply_to_message.from_user.id in secured_users:
             if is_master_bot(context):
                 try: 
-                    await update.message.reply_text("𝑻𝒆𝒓𝒊 𝒂𝒖𝒌𝒂𝒕 𝒏𝒉𝒊 𝒉𝒂𝒊 𝒌𝒂𝒓𝒕𝒊𝒌 𝒌𝒆 𝒅𝒐𝒔𝒕 𝒌𝒐 𝒃𝒖𝒍𝒍𝒚 𝒌𝒓𝒏𝒆 𝒌𝒊 🌸
-", parse_mode="Markdown")
+                    await update.message.reply_text("✨ 𝑴𝒆𝒓𝒆 𝒌𝒂𝒓𝒕𝒊𝒌 𝒌𝒆 𝒅𝒐𝒔𝒕 𝒄𝒐 𝒃𝒖𝒍𝒍𝒚 𝒌𝒓𝒏𝒆 𝒌𝒊 𝒕𝒆𝒓𝒊 𝒂𝒖𝒌𝒂𝒕 𝒏𝒉𝒊 𝒉𝒂𝒊, 𝒔𝒂𝒍𝒆 𝒈𝒂𝒓𝒆𝒆𝒃! 🌸", parse_mode="Markdown")
                 except: pass
             return
+
 
         if is_master_bot(context):
             try: await update.message.reply_text("ᴍᴀɪ ʙᴀs ᴋᴀʀᴛɪᴋ ᴋɪ ʜᴜɴ ᴛᴇʀɪ ᴍᴀᴀ ᴄʜᴏᴅɴᴇ ᴍᴇ ᴛɪᴍᴇ ɴʜɪ ʟᴀɢᴀᴜɴɢɪ 💅🏻✨", parse_mode="Markdown")
