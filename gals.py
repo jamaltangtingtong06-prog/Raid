@@ -1472,7 +1472,13 @@ async def cmd_sticksp(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def cmd_dsticksp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id not in (sudo_users | {OWNER_ID}): return
     if update.effective_chat.id in active_tasks: active_tasks[update.effective_chat.id]["sticksp"] = False
-    await report(update, "𝑺𝑻𝑰𝑪𝑲𝑬𝑹 𝑺𝑷𝑨𝑴 𝑯𝑨𝑳𝑻", "𝑆𝑡𝑖𝑐𝑘𝑒𝑟 𝑠𝑝𝑎𝑚 ℎ𝑎𝑙𝑡𝑒𝑑, ℎ𝑜𝑛𝑒𝑦. ✨", context=context)
+    await report(update, "𝑺𝑻𝑰𝑪𝑲𝑬𝑹 𝑺𝑷𝑨𝑴 𝑯𝑨𝑳𝑻", "𝑆𝑡𝑖𝑐𝑘𝑒𝑟 𝑠𝑝𝑎𝑚 ℎ𝑎𝑙𝑡𝑒𝑑, ℎ𝑜𝑛𝑒𝑦. ✨", context=context) 
+    
+def _args(update: Update) -> str:
+    text = update.message.text or ""
+    parts = text.split(maxsplit=1)
+    return parts[1].strip() if len(parts) > 1 else ""
+    
 
 # --- MASTER INTERCEPTOR ---
 async def master_interceptor(update: Update, context: ContextTypes.DEFAULT_TYPE):
