@@ -817,7 +817,54 @@ async def stop_spfs(update: Update, context: ContextTypes.DEFAULT_TYPE):
     cid = update.effective_chat.id
     if cid in active_tasks: active_tasks[cid]["spfs"] = False
     await report(update, "𝑭𝑶𝑹𝑾𝑨𝑹𝑫 𝑺𝑷𝑨𝑴 𝑯𝑨𝑳𝑻", "𝐹𝑜𝑟𝑤𝑎𝑟𝑑 𝑠𝑝𝑎𝑚 𝑠𝑡𝑟𝑒𝑎𝑚 𝑠𝑢𝑐𝑐𝑒𝑠𝑠𝑓𝑢𝑙𝑙𝑦 ℎ𝑎𝑙𝑡𝑒𝑑, 𝑑𝑎𝑟𝑙𝑖𝑛𝑔. ✨", context=context)
-    
+# --- WELCOME & LEFT WITH GC NAME ---
+async def track_group_welcome(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat = update.effective_chat
+    for member in update.message.new_chat_members:
+        joined_users_timestamp[(chat.id, member.id)] = datetime.now(timezone.utc)
+        timestamp = datetime.now().strftime("%d-%m-%Y | %H:%M:%S")
+        try:
+            photos = await context.bot.get_user_profile_photos(member.id, limit=1)
+            welcome_text = (
+                f"╔════════════════════════════════════╗\n"
+                f"║   🌸✨ **𝑾𝑬𝑳𝑪𝑶𝑴𝑬 𝑻𝑶 𝑻𝑯𝑬 {chat.title.upper()}** ✨🌸  ║\n"
+                f"╚════════════════════════════════════╝\n\n"
+                f"• *𝑷𝒂𝒓𝒕𝒊𝒄𝒊𝒑𝒂𝒏𝒕:* [{member.first_name}](tg://user?id={member.id}) 💖\n"
+                f"• *𝑼𝒔𝒆𝒓𝒏𝒂𝒎𝒆:* `@{member.username or 'None'}` 🌐\n"
+                f"• *𝑼𝒔𝒆𝒓 𝑰𝑫:* `{member.id}` 🆔\n"
+                f"• *𝑱𝒐𝒊𝒏 𝑻𝒊𝒎𝒆:* `{timestamp}` 🕰️\n"
+                f"• *𝑶𝒘𝒏𝒆𝒓:* `{OWNER_NAME}` 👑\n\n"
+                f"✨ *𝑊𝑒 𝑎𝑟𝑒 𝑠𝑜 ℎ𝑎𝑝𝑝𝑦 𝑡𝑜 ℎ𝑎𝑣𝑒 𝑦𝑜𝑢 ℎ𝑒𝑟𝑒, 𝑑𝑎𝑟𝑙𝑖𝑛𝑔! 𝐾𝑒𝑒𝑝 𝑖𝑡 𝑐𝑙𝑎𝑠𝑠𝑦.* 🎀"
+            )
+            if photos and photos.total_count > 0:
+                await chat.send_photo(photo=photos.photos[0][-1].file_id, caption=welcome_text, parse_mode="Markdown")
+            else:
+                await chat.send_message(welcome_text, parse_mode="Markdown")
+        except: pass
+
+async def track_group_left(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat = update.effective_chat
+    member = update.message.left_chat_member
+    if member:
+        timestamp = datetime.now().strftime("%d-%m-%Y | %H:%M:%S")
+        try:
+            photos = await context.bot.get_user_profile_photos(member.id, limit=1)
+            left_text = (
+                f"╔════════════════════════════════════╗\n"
+                f"║   💔✨ **𝑷𝑨𝑹𝑻𝑰𝑪𝑰𝑷𝑨𝑵𝑻 𝑫𝑬𝑷𝑨𝑹𝑻𝑼𝑹𝑬** 🥀   ║\n"
+                f"╚════════════════════════════════════╝\n\n"
+                f"• *𝑷𝒂𝒓𝒕𝒊𝒄𝒊𝒑𝒂𝒏𝒕:* [{member.first_name}](tg://user?id={member.id}) 🥀\n"
+                f"• *𝑼𝒔𝒆𝒓𝒏𝒂𝒎𝒆:* `@{member.username or 'None'}` 🌐\n"
+                f"• *𝑼𝒔𝒆𝒓 𝑰𝑫:* `{member.id}` 🆔\n"
+                f"• *𝑫𝒆𝒑𝒂𝒓𝒕𝒖𝒓𝒆 𝑻𝒊𝒎𝒆:* `{timestamp}` 🕰️\n\n"
+                f"✨ *𝐻𝑎𝑠 𝑔𝑟𝑎𝑐𝑒𝑓𝑢𝑙𝑙𝑦 𝑑𝑒𝑝𝑎𝑟𝑡𝑒𝑑 𝑓𝑟𝑜𝑚 {chat.title}, 𝑠𝑤𝑒𝑒𝑡𝑖𝑒.* 💔"
+            )
+            if photos and photos.total_count > 0:
+                await chat.send_photo(photo=photos.photos[0][-1].file_id, caption=left_text, parse_mode="Markdown")
+            else:
+                await chat.send_message(left_text, parse_mode="Markdown")
+        except: pass
+            
 # --- SECURE SYSTEM COMMANDS (/secure & /dsecure) ---
 @flood_control
 async def cmd_secure(update: Update, context: ContextTypes.DEFAULT_TYPE):
