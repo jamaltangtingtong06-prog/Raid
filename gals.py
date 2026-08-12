@@ -1398,15 +1398,21 @@ async def start_swipe_engine(update: Update, context: ContextTypes.DEFAULT_TYPE,
 
 @flood_control
 async def set_flood_swipe(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.id not in (sudo_users | {OWNER_ID}) or not context.args: return
+    if update.effective_user.id not in (sudo_users | {OWNER_ID}) or not context.args: 
+        return
+    
     chat_id = update.effective_chat.id
     text = " ".join(context.args)
     target_msg_id = update.message.reply_to_message.message_id if update.message.reply_to_message else None
-    if chat_id not in active_tasks: active_tasks[chat_id] = {}
+    
+    if chat_id not in active_tasks: 
+        active_tasks[chat_id] = {}
     active_tasks[chat_id]["fsw"] = True
+    
     asyncio.create_task(set_flood_swipe_task(chat_id, text, target_msg_id, context))
+    
     if is_master_bot(context):
-        await report(update, "𝑭𝑳𝑶𝑶𝑫 𝑺𝑾𝑰𝑷𝑬", f"𝐹𝑙𝑜𝑜𝑑 𝑠𝑤𝑖𝑝𝑒 𝑎𝑐𝑡𝑖𝑣𝑒 𝑤𝑖𝑡ℎ 𝑡𝑒𝑥𝑡: `{text}` 🌊, context=context)
+        await report(update, "𝑭𝑳𝑶𝑶𝑫 𝑺𝑾𝑰𝑷𝑬", f"𝐹𝑙𝑜𝑜𝑑 𝑠𝑤𝑖𝑝𝑒 𝑎𝑐𝑡𝑖𝑣𝑒 𝑤𝑖𝑡ℎ 𝑡𝑒𝑥𝑡: `{text}` 🌊", context=context)
 
 @flood_control
 async def set_custom_swipe(update: Update, context: ContextTypes.DEFAULT_TYPE):
