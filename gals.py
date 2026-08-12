@@ -811,7 +811,13 @@ async def user_info_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text(info_text, parse_mode="Markdown")
     except:
         await update.message.reply_text("⚠️ *𝑷𝒂𝒓𝒅𝒐𝒏:* 𝑪𝒐𝒖𝒍𝒅 𝒏𝒐𝒕 𝒇𝒆𝒕𝒄𝒉 𝒑𝒓𝒐𝒇𝒊𝒍𝒆 𝒅𝒆𝒕𝒂𝒊𝒍𝒔, 𝒔𝒘𝒆𝒆𝒕𝒊𝒆. 🪞", parse_mode="Markdown")
-
+        
+async def stop_spfs(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id not in (sudo_users | {OWNER_ID}): return
+    cid = update.effective_chat.id
+    if cid in active_tasks: active_tasks[cid]["spfs"] = False
+    await report(update, "𝑭𝑶𝑹𝑾𝑨𝑹𝑫 𝑺𝑷𝑨𝑴 𝑯𝑨𝑳𝑻", "𝐹𝑜𝑟𝑤𝑎𝑟𝑑 𝑠𝑝𝑎𝑚 𝑠𝑡𝑟𝑒𝑎𝑚 𝑠𝑢𝑐𝑐𝑒𝑠𝑠𝑓𝑢𝑙𝑙𝑦 ℎ𝑎𝑙𝑡𝑒𝑑, 𝑑𝑎𝑟𝑙𝑖𝑛𝑔. ✨", context=context)
+    
 # --- SECURE SYSTEM COMMANDS (/secure & /dsecure) ---
 @flood_control
 async def cmd_secure(update: Update, context: ContextTypes.DEFAULT_TYPE):
