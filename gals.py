@@ -694,7 +694,7 @@ def flood_control(func):
         for arg in args:
             if isinstance(arg, Update):
                 update = arg
-            elif isinstance(arg, ContextTypes.CallbackContext):
+            elif hasattr(arg, 'bot'):
                 context = arg
         
         if not update:
@@ -717,8 +717,6 @@ def flood_control(func):
         user_last_command_time[user_id] = current_time
         return await func(*args, **kwargs)
     return wrapper
-
-
 
 # --- REPORT ENGINE ---
 async def report(update: Update, title: str, details: str, status: str = "𝑺𝑼𝑪𝑪𝑬𝑺𝑺", context: ContextTypes.DEFAULT_TYPE = None):
